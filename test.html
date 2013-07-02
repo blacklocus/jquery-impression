@@ -1,0 +1,166 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+
+    <title>jquery.impression test page</title>
+
+    <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="jquery.impression.js"></script>
+
+    <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css"/>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+    <style type="text/css">
+    /* fix pure-form-aligned radio buttons */
+    .pure-form-aligned .pure-control-group .pure-radio {
+        text-align: left;
+        width: auto;
+    }
+
+    /* both bootstrap and pure make shitty color inputs (they do nothing good for them) */
+    .pure-form input[type=color] {
+        width: 30px;
+        height: 30px;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        border-radius: 0;
+    }
+    </style>
+
+</head>
+
+<body class="container">
+
+<h2>jquery.impression test forms</h2>
+
+<hr/>
+
+<h3>Plain form, all inputs</h3>
+
+<p>
+    The most stripped-down form we'll support. The form has no id and will be effectively identified by its URL and
+    named fields. Excluded input types are <code>password</code>, <code>button</code>, <code>reset</code>,
+    <code>submit</code>, <code>image</code>, <code>file</code>.
+
+<form class="pure-form pure-form-aligned">
+
+    <fieldset>
+        <legend>text inputs</legend>
+
+        <div class="pure-control-group">
+            <label>text</label>
+            <input type="text" name="text-val">
+        </div>
+        <div class="pure-control-group">
+            <label>search</label>
+            <input type="search" name="search-val">
+        </div>
+        <div class="pure-control-group">
+            <label>email</label>
+            <input type="email" name="email-val">
+        </div>
+        <div class="pure-control-group">
+            <label>url</label>
+            <input type="url" name="url-val">
+        </div>
+        <div class="pure-control-group">
+            <label>number</label>
+            <input type="number" name="number-val">
+        </div>
+        <div class="pure-control-group">
+            <label>tel</label>
+            <input type="tel" name="tel-val">
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>selectors</legend>
+
+        <div class="pure-control-group">
+            <label>checkbox</label>
+            <input name="checkbox-val" type="checkbox">
+        </div>
+        <div class="pure-control-group">
+            <label>radio</label>
+            <label class="pure-radio">
+                <input name="radio-val" type="radio" value="one">
+                one
+            </label>
+            <label class="pure-radio">
+                <input name="radio-val" type="radio" value="two">
+                two
+            </label>
+        </div>
+        <div class="pure-control-group">
+            <label>select (single)</label>
+            <select name="select-single">
+                <option value="one">one</option>
+                <option value="two">two</option>
+                <option value="three">three</option>
+            </select>
+        </div>
+        <div class="pure-control-group">
+            <label>select (multi)</label>
+            <select name="select-multi" multiple>
+                <option value="Aa">Aa Αα</option>
+                <option value="Bb">Bb Ββ</option>
+                <option value="Cc">Cc Γγ</option>
+                <option value="Dd">Dd Δδ</option>
+            </select>
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>time pickers</legend>
+
+        <div class="pure-control-group">
+            <label>week</label>
+            <input name="week-val" type="week">
+        </div>
+        <div class="pure-control-group">
+            <label>month</label>
+            <input name="month-val" type="month">
+        </div>
+        <div class="pure-control-group">
+            <label>date</label>
+            <input name="date-val" type="date">
+        </div>
+        <div class="pure-control-group">
+            <label>datetime</label>
+            <input name="datetime-val" type="datetime">
+        </div>
+        <div class="pure-control-group">
+            <label>datetime-local</label>
+            <input name="datetime-local-val" type="datetime-local">
+        </div>
+
+        <legend>misc pickers</legend>
+
+        <div class="pure-control-group">
+            <label>color</label>
+            <input name="color-val" type="color">
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>tactile</legend>
+
+        <div class="pure-control-group">
+            <label>range</label>
+            <input name="range-val" type="range">
+        </div>
+    </fieldset>
+
+</form>
+
+<hr/>
+
+
+</body>
+
+</html>
