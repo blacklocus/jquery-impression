@@ -55,11 +55,13 @@
     remembered must be properly <code>name</code> attributed. The form element itself does not require any sort of
     <code>id</code> attribute, though multiple identical forms on the same page may be ambiguous without unique ids.
 
-<form class="pure-form pure-form-aligned" onsubmit="return false;" style="position: relative;">
+<form id="frm-test-data"></form>
+
+<form id="frm-test-form" class="pure-form pure-form-aligned" onsubmit="return false;" style="position: relative;">
 
     <button type="reset" class="btn btn-primary pull-right" style="position: absolute; right: 10px;">Clear All Inputs</button>
 
-    <fieldset style="margin-top: 5px;"><!-- even out spacing underneath right:d reset butotn -->
+    <fieldset style="margin-top: 5px;"><!-- even out spacing underneath right:d reset button -->
         <legend>text inputs</legend>
         <button type="reset" class="btn btn-info pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
 
@@ -218,7 +220,9 @@
 </body>
 
 <script type="text/javascript">
-$('form:first').impression();
+$('form#frm-test-form').impression({
+    idFields: ['formId', 'href']
+});
 
 var testData = {
     one: {

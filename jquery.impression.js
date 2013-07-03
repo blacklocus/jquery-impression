@@ -56,7 +56,15 @@
         'password'
     ];
 
-    $.fn.impression = function () {
+    $.fn.impression = function (options) {
+        options = options || {};
+
+        // non-zero set of idFields, otherwise include all
+        var idFields = options.idFields && options.idFields.length && options.idFields || ['formId', 'fieldHash', 'href'];
+        var idFieldsSet = {};
+        $.each(idFields, function(idx, el) {
+            idFieldsSet[el] = {};
+        });
 
 
         // data functions
@@ -72,9 +80,15 @@
 
         function getStorageId(form) {
             var id = {};
-            id.id = form.attr('id');
-            id.fieldHash = JSON.stringify(prepareImpData(form)).hashCode();
-            id.href = window.location.href;
+            if (idFieldsSet.formId) {
+                id.formId = form.attr('id');
+            }
+            if (idFieldsSet.fieldHash) {
+                id.fieldHash = JSON.stringify(prepareImpData(form)).hashCode();
+            }
+            if (idFieldsSet.href) {
+                id.href = window.location.href;
+            }
             return keyPrefix + $.param(id);
         }
 
