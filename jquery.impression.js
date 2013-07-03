@@ -52,7 +52,7 @@
 
     // $.serializeArray (on which $.serializeObject is based) only pulls in what we care about for the most part.
     // There are a few excludes nonetheless, namely, password fields.
-    var excludeFields = [
+    var excludeTypes = [
         'password'
     ];
 
@@ -72,8 +72,11 @@
         function prepareImpData(form) {
             var data = form.serializeObject();
             // Filter out excluded fields
-            $.each(excludeFields, function(idx, el) {
-                delete data[el];
+            $.each(excludeTypes, function(idx, excludeType) {
+                var inputs = form.find('input[type={0}][name]'.format(excludeType));
+                inputs.each(function (idx, input) {
+                    delete data[$(input).attr('name')];
+                });
             });
             return data;
         }
