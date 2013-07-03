@@ -71,13 +71,15 @@
 
         function prepareImpData(form) {
             var data = form.serializeObject();
-            // Filter out excluded fields
+
+            // Filter out excluded types
             $.each(excludeTypes, function(idx, excludeType) {
                 var inputs = form.find('input[type={0}][name]'.format(excludeType));
                 inputs.each(function (idx, input) {
                     delete data[$(input).attr('name')];
                 });
             });
+
             return data;
         }
 
@@ -96,8 +98,8 @@
         }
 
         function getImpData(storageId) {
-            var priorDataJson = localStorage.getItem(storageId);
-            return priorDataJson ? JSON.parse(priorDataJson) : {};
+            var impDataJson = localStorage.getItem(storageId);
+            return impDataJson ? JSON.parse(impDataJson) : {};
         }
 
         function saveImpData(storageId, form) {
@@ -112,9 +114,9 @@
         return this.each(function() {
             var $this = $(this);
             var storageId = getStorageId($this);
-            var priorData = getImpData(storageId);
+            var impData = getImpData(storageId);
 
-            $.each(priorData, function(key, value) {
+            $.each(impData, function(key, value) {
                 // restore any previously input values
                 var inputs = $this.find('[name={0}]'.format(key));
                 if (inputs.is('[type=checkbox]')) {
