@@ -1,5 +1,7 @@
 (function ($) {
 
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Utility
 
@@ -41,42 +43,100 @@
         return o;
     };
 
+
+
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // jQuery.impression
 
+    var keyPrefix = 'jquery.impression:';
+
+    // $.serializeArray (on which $.serializeObject is based) only pulls in what we care about for the most part.
+    // There are a few excludes nonetheless, namely, password fields.
+    var excludeFields = [
+        'password'
+    ];
+
     $.fn.impression = function () {
+
+
+        // data functions
+
+        function prepareImpData(form) {
+            var data = form.serializeObject();
+            // Filter out excluded fields
+            $.each(excludeFields, function(idx, el) {
+                delete data[el];
+            });
+            return data;
+        }
 
         function getStorageId(form) {
             var id = {};
-            id.href = window.location.href;
             id.id = form.attr('id');
-            // TODO it's possible that a page may have multiple of the same mini-form.
-            // id.hierarchy ? when id is undefined. This is still unique and won't collide if parts
-            // of the page changes. Any other problems?
-            id.fieldHash = JSON.stringify(form.serializeObject()).hashCode();
-            return 'jquery.impression:' + $.param(id);
+            id.fieldHash = JSON.stringify(prepareImpData(form)).hashCode();
+            id.href = window.location.href;
+            return keyPrefix + $.param(id);
         }
 
-        function getPriorData(storageId) {
+        function getImpData(storageId) {
             var priorDataJson = localStorage.getItem(storageId);
             return priorDataJson ? JSON.parse(priorDataJson) : {};
         }
 
-        function savePriorData(storageId, form) {
-            localStorage.setItem(storageId, JSON.stringify(form.serializeObject()));
+        function saveImpData(storageId, form) {
+            console.debug('saving ' + storageId);
+            localStorage.setItem(storageId, JSON.stringify(prepareImpData(form)));
         }
 
-        return this.each(function() {
-            var storageId = getStorageId(this);
-            var priorData = getPriorData(storageId);
 
-            // restore any previously input values
+
+        // core logic
+
+        return this.each(function() {
+            var $this = $(this);
+            var storageId = getStorageId($this);
+            var priorData = getImpData(storageId);
+
             $.each(priorData, function(key, value) {
-                this.find('[name={0}]'.format(key)).val(value);
+                // restore any previously input values
+                var inputs = $this.find('[name={0}]'.format(key));
+                if (inputs.is('[type=checkbox]')) {
+                    // checkboxes remain annoying to this day
+                    inputs.prop('checked', true);
+                } else if (inputs.is('[type=radio]')) {
+                    // radios remain annoying to this day
+                    inputs.filter('[value={0}]'.format(value)).prop('checked', true);
+                } else {
+                    inputs.val(value);
+                }
             });
 
-            // TODO set up recording hooks: onchange, on navigate, others?
+            $this.change(function(jqEvent){
+                saveImpData(storageId, $this);
+            });
+
+            $(window).bind("beforeunload", function(jqEvent) {
+                saveImpData(storageId, $this);
+                return null;
+            });
         });
     };
+
+
+
+    // public functions
+
+    $.impression = {
+        clear: function () {
+            for (var i = localStorage.length - 1; i >= 0; i--) {
+                var key = localStorage.key(i);
+                if (key.indexOf(keyPrefix) === 0) {
+                    console.debug('deleting ' + key);
+                    localStorage.removeItem(key);
+                }
+            }
+        }
+    };
+
 
 })(jQuery);

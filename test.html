@@ -15,6 +15,14 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
     <style type="text/css">
+    /* visually enclose forms */
+    form.pure-form {
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        margin: 10px -10px;
+        padding: 10px;
+    }
+
     /* fix pure-form-aligned radio buttons */
     .pure-form-aligned .pure-control-group .pure-radio {
         text-align: left;
@@ -43,14 +51,17 @@
 <h3>Plain form, all inputs</h3>
 
 <p>
-    The most stripped-down form we'll support. The form has no id and will be effectively identified by its URL and
-    named fields. Excluded input types are <code>password</code>, <code>button</code>, <code>reset</code>,
-    <code>submit</code>, <code>image</code>, <code>file</code>.
+    This form is fleshed out to some notion of the maximum supported form styles. All form elements that should be
+    remembered must be properly <code>name</code> attributed. The form element itself does not require any sort of
+    <code>id</code> attribute, though multiple identical forms on the same page may be ambiguous without unique ids.
 
-<form class="pure-form pure-form-aligned">
+<form class="pure-form pure-form-aligned" onsubmit="return false;" style="position: relative;">
 
-    <fieldset>
+    <button type="reset" class="btn btn-primary pull-right" style="position: absolute; right: 10px;">Clear All Inputs</button>
+
+    <fieldset style="margin-top: 5px;"><!-- even out spacing underneath right:d reset butotn -->
         <legend>text inputs</legend>
+        <button type="reset" class="btn btn-info pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
 
         <div class="pure-control-group">
             <label>text</label>
@@ -76,10 +87,15 @@
             <label>tel</label>
             <input type="tel" name="tel-val">
         </div>
+        <div class="pure-control-group">
+            <label>textarea</label>
+            <textarea name="textarea-val" rows="4" cols="80"></textarea>
+        </div>
     </fieldset>
 
     <fieldset>
         <legend>selectors</legend>
+        <button type="reset" class="btn btn-info pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
 
         <div class="pure-control-group">
             <label>checkbox</label>
@@ -99,6 +115,7 @@
         <div class="pure-control-group">
             <label>select (single)</label>
             <select name="select-single">
+                <option value="">(select one)</option>
                 <option value="one">one</option>
                 <option value="two">two</option>
                 <option value="three">three</option>
@@ -116,7 +133,8 @@
     </fieldset>
 
     <fieldset>
-        <legend>time pickers</legend>
+        <legend>pickers</legend>
+        <button type="reset" class="btn btn-info pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
 
         <div class="pure-control-group">
             <label>week</label>
@@ -138,9 +156,6 @@
             <label>datetime-local</label>
             <input name="datetime-local-val" type="datetime-local">
         </div>
-
-        <legend>misc pickers</legend>
-
         <div class="pure-control-group">
             <label>color</label>
             <input name="color-val" type="color">
@@ -149,6 +164,7 @@
 
     <fieldset>
         <legend>tactile</legend>
+        <button type="reset" class="btn btn-info pull-right clear-fieldset">Clear These Inputs</button>
 
         <div class="pure-control-group">
             <label>range</label>
@@ -156,15 +172,106 @@
         </div>
     </fieldset>
 
+    <fieldset>
+        <legend>ignored input types</legend>
+        <button type="reset" class="btn btn-info pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
+        <p>
+            Some of these elements may be <code>name</code> or <code>value</code> attributed, but should not be
+            affected by impress.
+
+        <div class="pure-control-group">
+            <label>password</label>
+            <input name="password-val" type="password">
+        </div>
+        <div class="pure-control-group">
+            <label>reset</label>
+            <input name="reset-val" type="reset" value="Reset" onclick="return false;">
+        </div>
+        <div class="pure-control-group">
+            <label>button</label>
+            <input name="button-val" type="button" value="Button" onclick="return false;">
+        </div>
+        <div class="pure-control-group">
+            <label>submit</label>
+            <input name="submit-val" type="submit" value="Submit" onclick="return false;">
+        </div>
+        <div class="pure-control-group">
+            <label>image</label>
+            <input name="image-val" type="image" value="Image" onclick="return false;">
+        </div>
+        <div class="pure-control-group">
+            <label>file</label>
+            <input name="file-val" type="file">
+        </div>
+    </fieldset>
+
+    <hr/>
+
+    <div class="clearfix">
+        <button type="reset" class="btn btn-primary pull-right">Clear All Inputs</button>
+    </div>
+
 </form>
 
-<hr/>
 
 
 </body>
 
 <script type="text/javascript">
 $('form:first').impression();
+
+var testData = {
+    one: {
+        'text-val': 'test set "one"',
+        'search-val': 'find more about "one"',
+        'email-val': 'one@localhost',
+        'url-val': 'one.blacklocus.com',
+        'number-val': 1337,
+        'tel-val': '123-456-7890',
+        'textarea-val': 'All you need is one.',
+
+        'checkbox-val': false,
+        'radio-val': 'one',
+        'select-single': 'one',
+        'select-multi': ['Aa'],
+
+        'week-val': '2013-W01',
+        'month-val': '2013-01',
+        'date-val': '2013-01-01',
+        'datetime-val': '2013-01-01T00:00Z',
+        'datetime-local-val': '2013-01-01T00:00',
+        'color-val': '#00f900',
+
+        'range-val': 0,
+
+        'password-val': '1'
+    },
+    two: {
+        'text-val': 'test set "two"',
+        'search-val': 'find more about "two"',
+        'email-val': 'two@localhost',
+        'url-val': 'two.blacklocus.com',
+        'number-val': 2337,
+        'tel-val': '234-567-8901',
+        'textarea-val': 'Two can be as bad as one',
+
+        'checkbox-val': true,
+        'radio-val': 'two',
+        'select-single': 'two',
+        'select-multi': ['Bb', 'Dd'],
+
+        'week-val': '2020-W22',
+        'month-val': '2020-02',
+        'date-val': '2020-02-22',
+        'datetime-val': '2020-02-22T02:22Z',
+        'datetime-local-val': '2020-02-22T02:22',
+        'color-val': '#0000f9',
+
+        'range-val': 100,
+
+        'password-val': '2'
+    }
+};
 </script>
 
 </html>
