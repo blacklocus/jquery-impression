@@ -15,6 +15,9 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
     <style type="text/css">
+    body {
+        font-size: inherit;
+    }
     /* visually enclose forms */
     form.pure-form {
         border: 1px solid #ddd;
@@ -38,6 +41,28 @@
         padding: 0;
         border-radius: 0;
     }
+
+    /* select aligns with pure-button */
+    select.pure-select {
+        height: 35px;
+        font-size: inherit;
+    }
+    .pure-button.pure-button-small {
+        font-size: 85%;
+    }
+    .pure-button-secondary {
+        color: #fff;
+        background: rgb(66, 184, 221);
+    }
+    input[type=image] {
+        opacity: 0.9;
+    }
+    input[type=image]:hover {
+        opacity: 0.8;
+    }
+    input[type=image]:active {
+        opacity: 1.0;
+    }
     </style>
 
 </head>
@@ -55,15 +80,23 @@
     remembered must be properly <code>name</code> attributed. The form element itself does not require any sort of
     <code>id</code> attribute, though multiple identical forms on the same page may be ambiguous without unique ids.
 
-<form id="frm-test-data"></form>
+<h4>Test Data</h4>
+<form id="frm-test-data" class="pure-form" onsubmit="return false;">
+    <select name="test-set" class="pure-select">
+        <!-- populated by js -->
+    </select>
+    <button type="submit" class="pure-button">Load Test Data</button>
+    <span>Populates all fields except file upload. Does not change button values.</span>
+</form>
 
+<h4>Test Form</h4>
 <form id="frm-test-form" class="pure-form pure-form-aligned" onsubmit="return false;" style="position: relative;">
 
-    <button type="reset" class="btn btn-primary pull-right" style="position: absolute; right: 10px;">Clear All Inputs</button>
+    <button type="reset" class="pure-button pure-button-primary pull-right" style="position: absolute; right: 10px;">Clear All Inputs</button>
 
-    <fieldset style="margin-top: 5px;"><!-- even out spacing underneath right:d reset button -->
+    <fieldset style="margin-top: 15px;"><!-- even out spacing underneath right:d reset button -->
         <legend>text inputs</legend>
-        <button type="reset" class="btn btn-info pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
+        <button type="reset" class="pure-button pure-button-secondary pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
 
         <div class="pure-control-group">
             <label>text</label>
@@ -97,7 +130,7 @@
 
     <fieldset>
         <legend>selectors</legend>
-        <button type="reset" class="btn btn-info pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
+        <button type="reset" class="pure-button pure-button-secondary pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
 
         <div class="pure-control-group">
             <label>checkbox</label>
@@ -136,7 +169,7 @@
 
     <fieldset>
         <legend>pickers</legend>
-        <button type="reset" class="btn btn-info pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
+        <button type="reset" class="pure-button pure-button-secondary pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
 
         <div class="pure-control-group">
             <label>week</label>
@@ -166,7 +199,7 @@
 
     <fieldset>
         <legend>tactile</legend>
-        <button type="reset" class="btn btn-info pull-right clear-fieldset">Clear These Inputs</button>
+        <button type="reset" class="pure-button pure-button-secondary pull-right clear-fieldset">Clear These Inputs</button>
 
         <div class="pure-control-group">
             <label>range</label>
@@ -176,7 +209,7 @@
 
     <fieldset>
         <legend>ignored input types</legend>
-        <button type="reset" class="btn btn-info pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
+        <button type="reset" class="pure-button pure-button-secondary pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
         <p>
             Some of these elements may be <code>name</code> or <code>value</code> attributed, but should not be
             affected by impress.
@@ -187,19 +220,19 @@
         </div>
         <div class="pure-control-group">
             <label>reset</label>
-            <input name="reset-val" type="reset" value="Reset" onclick="return false;">
+            <input name="reset-val" type="reset" class="pure-button pure-button-small" value="Reset" onclick="return false;">
         </div>
         <div class="pure-control-group">
             <label>button</label>
-            <input name="button-val" type="button" value="Button" onclick="return false;">
+            <input name="button-val" type="button" class="pure-button pure-button-small" value="Button" onclick="return false;">
         </div>
         <div class="pure-control-group">
             <label>submit</label>
-            <input name="submit-val" type="submit" value="Submit" onclick="return false;">
+            <input name="submit-val" type="submit" class="pure-button pure-button-small" value="Submit" onclick="return false;">
         </div>
         <div class="pure-control-group">
             <label>image</label>
-            <input name="image-val" type="image" value="Image" onclick="return false;">
+            <input name="image-val" type="image" value="Image" src="/img/wabbit_alpha.png" onclick="return false;" >
         </div>
         <div class="pure-control-group">
             <label>file</label>
@@ -210,7 +243,7 @@
     <hr/>
 
     <div class="clearfix">
-        <button type="reset" class="btn btn-primary pull-right">Clear All Inputs</button>
+        <button type="reset" class="pure-button pure-button-primary pull-right">Clear All Inputs</button>
     </div>
 
 </form>
@@ -220,10 +253,6 @@
 </body>
 
 <script type="text/javascript">
-$('form#frm-test-form').impression({
-    idFields: ['formId', 'href']
-});
-
 var testData = {
     one: {
         'text-val': 'test set "one"',
@@ -276,6 +305,24 @@ var testData = {
         'password-val': '2'
     }
 };
+
+var $frmTestSet = $('#frm-test-data'), $frmTestForm = $('#frm-test-form');
+var $selTestSet = $frmTestSet.find('select[name=test-set]');
+$.each(testData, function(key, value) {
+    $selTestSet.append('<option value="{0}">{0}</option>'.format(key));
+});
+$frmTestSet.submit(function(e) {
+    var $form = $(e.target);
+    var formData = $form.serializeObject();
+    var testDataSet = testData[formData['test-set']];
+    $.impression.applyForm($frmTestForm, testDataSet);
+});
+
+
+$('form').impression({
+    idFields: ['formId', 'href'] // makes developing the actual form easier
+});
+
 </script>
 
 </html>

@@ -116,19 +116,7 @@
             var storageId = getStorageId($this);
             var impData = getImpData(storageId);
 
-            $.each(impData, function(key, value) {
-                // restore any previously input values
-                var inputs = $this.find('[name={0}]'.format(key));
-                if (inputs.is('[type=checkbox]')) {
-                    // checkboxes remain annoying to this day
-                    inputs.prop('checked', true);
-                } else if (inputs.is('[type=radio]')) {
-                    // radios remain annoying to this day
-                    inputs.filter('[value={0}]'.format(value)).prop('checked', true);
-                } else {
-                    inputs.val(value);
-                }
-            });
+            $.impression.applyForm($this, impData);
 
             $this.change(function(jqEvent){
                 saveImpData(storageId, $this);
@@ -146,7 +134,7 @@
     // public functions
 
     $.impression = {
-        clear: function () {
+        clear: function() {
             for (var i = localStorage.length - 1; i >= 0; i--) {
                 var key = localStorage.key(i);
                 if (key.indexOf(keyPrefix) === 0) {
@@ -154,6 +142,25 @@
                     localStorage.removeItem(key);
                 }
             }
+        },
+        /**
+         * @param {jQuery} $form to populate
+         * @param {object} values to apply to form
+         */
+        applyForm: function($form, values) {
+            $.each(values, function(key, value) {
+                // restore any previously input values
+                var inputs = $form.find('[name={0}]'.format(key));
+                if (inputs.is('[type=checkbox]')) {
+                    // checkboxes remain annoying to this day
+                    inputs.prop('checked', true);
+                } else if (inputs.is('[type=radio]')) {
+                    // radios remain annoying to this day
+                    inputs.filter('[value={0}]'.format(value)).prop('checked', true);
+                } else {
+                    inputs.val(value);
+                }
+            });
         }
     };
 
