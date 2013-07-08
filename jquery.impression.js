@@ -50,8 +50,9 @@
 
     var keyPrefix = 'jquery.impression:';
 
-    // $.serializeArray (on which $.serializeObject is based) only pulls in what we care about for the most part.
-    // There are a few excludes nonetheless, namely, password fields.
+    // $.serializeArray (on which $.serializeObject is based) only pulls in what we care about for the most part,
+    // which is absolutely fantastic and subsidizes a lot of work. There are a few excludes nonetheless, namely,
+    // password fields.
     var excludeTypes = [
         'password'
     ];
@@ -148,17 +149,45 @@
          * @param {object} values to apply to form
          */
         applyForm: function($form, values) {
+            $form[0].reset();
             $.each(values, function(key, value) {
-                // restore any previously input values
+                var values = [].concat(value);
                 var inputs = $form.find('[name={0}]'.format(key));
+
+                // restore any previously input values
                 if (inputs.is('[type=checkbox]')) {
                     // checkboxes remain annoying to this day
-                    inputs.prop('checked', true);
+
+                    var secondaryFill = [];
+
+                    // First tick valued checkboxes.
+                    for (var i = 0; i < values.length; i++) {
+                        var valueAttr = values[i];
+                        if (!inputs.filter('[value={0}]:not(:checked):first'.format(valueAttr)).prop('checked', true).size()) {
+                            // no match, add it to secondary fill
+                            secondaryFill.push(valueAttr);
+                        }
+                    }
+
+                    // Then tick any un-valued checkboxes with remaining slots.
+                    var nonValue = $('[type=checkbox]:not([value])');
+                    for (var j = 0; j < secondaryFill.length && j < nonValue.size(); j++) {
+                        $(nonValue[j]).prop('checked', true);
+                    }
+
                 } else if (inputs.is('[type=radio]')) {
                     // radios remain annoying to this day
                     inputs.filter('[value={0}]'.format(value)).prop('checked', true);
+
+                } else if (inputs.is('select[multiple]')) {
+                    // Multiple select can take an array directly. In addition if for some reason there are multiple
+                    // multiple selects by the same name, this will also take care of that.
+                    inputs.val(values);
+
                 } else {
-                    inputs.val(value);
+                    inputs.val(function(idx, oldVal) {
+                        return values.length > idx ? values[idx] : null;
+                    });
                 }
             });
         }

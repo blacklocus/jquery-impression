@@ -6,7 +6,7 @@
 
     <title>jquery.impression test page</title>
 
-    <script type="text/javascript" src="js/jquery-1.10.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-1.10.2.min.js"></script>
     <script type="text/javascript" src="jquery.impression.js"></script>
 
     <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.2.0/pure-min.css">
@@ -101,30 +101,50 @@
         <div class="pure-control-group">
             <label>text</label>
             <input type="text" name="text-val">
+            <input type="text" name="text-val">
+            <input type="text" name="text-val">
         </div>
         <div class="pure-control-group">
             <label>search</label>
+            <input type="search" name="search-val">
+            <input type="search" name="search-val">
             <input type="search" name="search-val">
         </div>
         <div class="pure-control-group">
             <label>email</label>
             <input type="email" name="email-val">
+            <input type="email" name="email-val">
+            <input type="email" name="email-val">
         </div>
         <div class="pure-control-group">
             <label>url</label>
+            <input type="url" name="url-val">
+            <input type="url" name="url-val">
             <input type="url" name="url-val">
         </div>
         <div class="pure-control-group">
             <label>number</label>
             <input type="number" name="number-val">
+            <input type="number" name="number-val">
+            <input type="number" name="number-val">
         </div>
         <div class="pure-control-group">
             <label>tel</label>
+            <input type="tel" name="tel-val">
+            <input type="tel" name="tel-val">
             <input type="tel" name="tel-val">
         </div>
         <div class="pure-control-group">
             <label>textarea</label>
             <textarea name="textarea-val" rows="4" cols="80"></textarea>
+        </div>
+        <div class="pure-control-group">
+            <label></label>
+            <textarea name="textarea-val" rows="2" cols="80"></textarea>
+        </div>
+        <div class="pure-control-group">
+            <label></label>
+            <textarea name="textarea-val" rows="1" cols="80"></textarea>
         </div>
     </fieldset>
 
@@ -132,9 +152,23 @@
         <legend>selectors</legend>
         <button type="reset" class="pure-button pure-button-secondary pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
 
+        <small>
+            Like-named checkboxes are a bit annoying. First, value-attributed checkboxes are matched. Then, any remaining
+            un-valued checkboxes are populated to satisfy the total count. So the first set of checkboxes cannot
+            maintain positional checked-ness. The second set of checkboxes are uniquely value-attributed and so impress
+            can be more specific about which checkboxes it ticks.
+        </small>
         <div class="pure-control-group">
-            <label>checkbox</label>
-            <input name="checkbox-val" type="checkbox">
+            <label>checkbox (= vals)</label>
+            <input name="checkbox-non-val" type="checkbox">
+            <input name="checkbox-non-val" type="checkbox">
+            <input name="checkbox-non-val" type="checkbox">
+        </div>
+        <div class="pure-control-group">
+            <label>checkbox (!= vals)</label>
+            <input name="checkbox-val" type="checkbox" value="one">
+            <input name="checkbox-val" type="checkbox" value="two">
+            <input name="checkbox-val" type="checkbox" value="three">
         </div>
         <div class="pure-control-group">
             <label>radio</label>
@@ -146,6 +180,10 @@
                 <input name="radio-val" type="radio" value="two">
                 two
             </label>
+            <label class="pure-radio">
+                <input name="radio-val" type="radio" value="three">
+                three
+            </label>
         </div>
         <div class="pure-control-group">
             <label>select (single)</label>
@@ -155,6 +193,18 @@
                 <option value="two">two</option>
                 <option value="three">three</option>
             </select>
+            <select name="select-single">
+                <option value="">(select one)</option>
+                <option value="uno">uno</option>
+                <option value="dos">dos</option>
+                <option value="tres">tres</option>
+            </select>
+            <select name="select-single">
+                <option value="">(select one)</option>
+                <option value="a">a</option>
+                <option value="third">third</option>
+                <option value="dropdown">dropdown</option>
+            </select>
         </div>
         <div class="pure-control-group">
             <label>select (multi)</label>
@@ -163,6 +213,11 @@
                 <option value="Bb">Bb Ββ</option>
                 <option value="Cc">Cc Γγ</option>
                 <option value="Dd">Dd Δδ</option>
+            </select>
+            <select name="select-multi" multiple>
+                <option value="Yes">Yes</option>
+                <option value="Even over here!">Even over here!</option>
+                <option value="Craziness.">Craziness.</option>
             </select>
         </div>
     </fieldset>
@@ -174,25 +229,37 @@
         <div class="pure-control-group">
             <label>week</label>
             <input name="week-val" type="week">
+            <input name="week-val" type="week">
+            <input name="week-val" type="week">
         </div>
         <div class="pure-control-group">
             <label>month</label>
+            <input name="month-val" type="month">
+            <input name="month-val" type="month">
             <input name="month-val" type="month">
         </div>
         <div class="pure-control-group">
             <label>date</label>
             <input name="date-val" type="date">
+            <input name="date-val" type="date">
+            <input name="date-val" type="date">
         </div>
         <div class="pure-control-group">
             <label>datetime</label>
+            <input name="datetime-val" type="datetime">
+            <input name="datetime-val" type="datetime">
             <input name="datetime-val" type="datetime">
         </div>
         <div class="pure-control-group">
             <label>datetime-local</label>
             <input name="datetime-local-val" type="datetime-local">
+            <input name="datetime-local-val" type="datetime-local">
+            <input name="datetime-local-val" type="datetime-local">
         </div>
         <div class="pure-control-group">
             <label>color</label>
+            <input name="color-val" type="color">
+            <input name="color-val" type="color">
             <input name="color-val" type="color">
         </div>
     </fieldset>
@@ -204,6 +271,8 @@
         <div class="pure-control-group">
             <label>range</label>
             <input name="range-val" type="range">
+            <input name="range-val" type="range">
+            <input name="range-val" type="range">
         </div>
     </fieldset>
 
@@ -212,30 +281,42 @@
         <button type="reset" class="pure-button pure-button-secondary pull-right clear-fieldset" onclick="return false;">Clear These Inputs</button>
         <p>
             Some of these elements may be <code>name</code> or <code>value</code> attributed, but should not be
-            affected by impress.
+            considered nor affected by impress. Default behaviors for buttons below are disabled for this test page.
 
         <div class="pure-control-group">
             <label>password</label>
+            <input name="password-val" type="password">
+            <input name="password-val" type="password">
             <input name="password-val" type="password">
         </div>
         <div class="pure-control-group">
             <label>reset</label>
             <input name="reset-val" type="reset" class="pure-button pure-button-small" value="Reset" onclick="return false;">
+            <input name="reset-val" type="reset" class="pure-button pure-button-small" value="Reset" onclick="return false;">
+            <input name="reset-val" type="reset" class="pure-button pure-button-small" value="Reset" onclick="return false;">
         </div>
         <div class="pure-control-group">
             <label>button</label>
+            <input name="button-val" type="button" class="pure-button pure-button-small" value="Button" onclick="return false;">
+            <input name="button-val" type="button" class="pure-button pure-button-small" value="Button" onclick="return false;">
             <input name="button-val" type="button" class="pure-button pure-button-small" value="Button" onclick="return false;">
         </div>
         <div class="pure-control-group">
             <label>submit</label>
             <input name="submit-val" type="submit" class="pure-button pure-button-small" value="Submit" onclick="return false;">
+            <input name="submit-val" type="submit" class="pure-button pure-button-small" value="Submit" onclick="return false;">
+            <input name="submit-val" type="submit" class="pure-button pure-button-small" value="Submit" onclick="return false;">
         </div>
         <div class="pure-control-group">
             <label>image</label>
             <input name="image-val" type="image" value="Image" src="/img/wabbit_alpha.png" onclick="return false;" >
+            <input name="image-val" type="image" value="Image" src="/img/wabbit_alpha.png" onclick="return false;" >
+            <input name="image-val" type="image" value="Image" src="/img/wabbit_alpha.png" onclick="return false;" >
         </div>
         <div class="pure-control-group">
             <label>file</label>
+            <input name="file-val" type="file">
+            <input name="file-val" type="file">
             <input name="file-val" type="file">
         </div>
     </fieldset>
@@ -255,7 +336,7 @@
 <script type="text/javascript">
 var testData = {
     one: {
-        'text-val': 'test set "one"',
+        'text-val': 'test set "one"', // intentionally single value, non-array
         'search-val': 'find more about "one"',
         'email-val': 'one@localhost',
         'url-val': 'one.blacklocus.com',
@@ -263,10 +344,11 @@ var testData = {
         'tel-val': '123-456-7890',
         'textarea-val': 'All you need is one.',
 
-        'checkbox-val': false,
+        'checkbox-non-val': true,
+        'checkbox-val': 'one',
         'radio-val': 'one',
         'select-single': 'one',
-        'select-multi': ['Aa'],
+        'select-multi': 'Aa',
 
         'week-val': '2013-W01',
         'month-val': '2013-01',
@@ -280,29 +362,56 @@ var testData = {
         'password-val': '1'
     },
     two: {
-        'text-val': 'test set "two"',
-        'search-val': 'find more about "two"',
-        'email-val': 'two@localhost',
-        'url-val': 'two.blacklocus.com',
-        'number-val': 2337,
-        'tel-val': '234-567-8901',
-        'textarea-val': 'Two can be as bad as one',
+        'text-val': ['test set "two" with A value', 'test set "two with B value'],
+        'search-val': ['search "two" with A value', 'search "two" with B value'],
+        'email-val': ['two-A@localhost', 'two-B@localhost'],
+        'url-val': ['two.blacklocus.com/A', 'two.blacklocus.com/B'],
+        'number-val': [2337, 2338],
+        'tel-val': ['234-567-8901', '234-567-8902'],
+        'textarea-val': ['Two can be as bad as one', "It's the loneliest number since the number one"],
 
-        'checkbox-val': true,
-        'radio-val': 'two',
-        'select-single': 'two',
-        'select-multi': ['Bb', 'Dd'],
+        'checkbox-non-val': [true, true],
+        'checkbox-val': ['one', 'two'],
+        'radio-val': 'two', // radios can never be multi-select
+        'select-single': ['two', 'dos'],
+        'select-multi': ['Bb', 'Dd', 'Even over here!'],
 
-        'week-val': '2020-W22',
-        'month-val': '2020-02',
-        'date-val': '2020-02-22',
-        'datetime-val': '2020-02-22T02:22Z',
-        'datetime-local-val': '2020-02-22T02:22',
-        'color-val': '#0000f9',
+        'week-val': ['2020-W22', '2222-W22'],
+        'month-val': ['2020-02', '2222-02'],
+        'date-val': ['2020-02-22', '2222-02-22'],
+        'datetime-val': ['2020-02-22T02:22Z', '2222-02-22T02:22Z'],
+        'datetime-local-val': ['2020-02-22T02:22', '2222-02-22T02:22'],
+        'color-val': ['#0000f9', '#0000c9'],
 
-        'range-val': 100,
+        'range-val': [100, 90],
 
-        'password-val': '2'
+        'password-val': ['22', '2222']
+    },
+    gaps: {
+        'text-val': [null, null, '3rd away!'],
+        'search-val': null,
+        'email-val': null,
+        'url-val': null,
+        'number-val': null,
+        'tel-val': null,
+        'textarea-val': null,
+
+        'checkbox-non-val': ["on", "on", "on"],
+        'checkbox-val': 'three',
+        'radio-val': 'three',
+        'select-single': [null, null, 'third'],
+        'select-multi': null,
+
+        'week-val': null,
+        'month-val': null,
+        'date-val': null,
+        'datetime-val': null,
+        'datetime-local-val': null,
+        'color-val': null,
+
+        'range-val': null,
+
+        'password-val': null
     }
 };
 
