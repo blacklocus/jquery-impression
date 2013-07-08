@@ -30,6 +30,12 @@ Finally all jquery.impression saved form data can be cleared, if you just feel d
     $.impression.clear();
 
 
+Demo (Test) Page
+----------------
+
+https://rawgithub.com/blacklocus/jquery-impression/master/test.html
+
+
 License
 -------
 Copyright 2013 BlackLocus
