@@ -75,7 +75,7 @@
 
             // Filter out excluded types
             $.each(excludeTypes, function(idx, excludeType) {
-                var inputs = form.find('input[type={0}][name]'.format(excludeType));
+                var inputs = form.find('input[type="{0}"][name]'.format(excludeType));
                 inputs.each(function (idx, input) {
                     delete data[$(input).attr('name')];
                 });
@@ -152,7 +152,7 @@
             $form[0].reset();
             $.each(values, function(key, value) {
                 var values = [].concat(value);
-                var inputs = $form.find('[name={0}]'.format(key));
+                var inputs = $form.find('[name="{0}"]'.format(key));
 
                 // restore any previously input values
                 if (inputs.is('[type=checkbox]')) {
@@ -163,7 +163,7 @@
                     // First tick valued checkboxes.
                     for (var i = 0; i < values.length; i++) {
                         var valueAttr = values[i];
-                        if (!inputs.filter('[value={0}]:not(:checked):first'.format(valueAttr)).prop('checked', true).size()) {
+                        if (!inputs.filter('[value="{0}"]:not(:checked):first'.format(valueAttr)).prop('checked', true).size()) {
                             // no match, add it to secondary fill
                             secondaryFill.push(valueAttr);
                         }
@@ -177,7 +177,7 @@
 
                 } else if (inputs.is('[type=radio]')) {
                     // radios remain annoying to this day
-                    inputs.filter('[value={0}]'.format(value)).prop('checked', true);
+                    inputs.filter('[value="{0}"]'.format(value)).prop('checked', true);
 
                 } else if (inputs.is('select[multiple]')) {
                     // Multiple select can take an array directly. In addition if for some reason there are multiple
