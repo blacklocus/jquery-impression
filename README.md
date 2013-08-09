@@ -15,8 +15,9 @@ This will both recall saved values and also hook change events to record form va
     $(form).impression();
 
 Forms are identified by their `id` attribute, a hash value of the fields' `name` attributes, and the current page URL.
-The respective jquery.impression keys are `formId`, `fieldHash`, and `href`. By default all are included, but the set can
-be overridden as follows.
+The respective jquery.impression keys are `formId` (the form element's id attribute), `fieldHash` (a hash value produced
+by all of the fields' names), and `href` (e.g. window.location.href) By default all are included, but the set
+can be overridden as follows.
 
     $(form).impression({
         idFields: ['formId', 'href']
