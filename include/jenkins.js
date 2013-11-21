@@ -6,9 +6,9 @@
  * See commented code for functionality.
  */
 
-(function () {
+(function ($) {
   /* remember last inputs on parameterized builds */
-  jQuery('body').append('<script type="text/javascript" src="https://raw.github.com/blacklocus/jquery-impression/master/jquery.impression.min.js"></script>');
-  jQuery('form[name=parameters]').impression();
-})();
+  $('<script type="text/javascript" src="https://raw.github.com/blacklocus/jquery-impression/master/jquery.impression.min.js"></script>').appendTo('body');
+  $('form[name=parameters]').impression();
+})(jQuery);
 
