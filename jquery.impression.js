@@ -125,7 +125,6 @@
 
             $(window).bind("beforeunload", function(jqEvent) {
                 saveImpData(storageId, $this);
-                return null;
             });
         });
     };
