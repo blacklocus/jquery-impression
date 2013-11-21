@@ -7,10 +7,8 @@
  */
 
 (function ($) {
-  /* remember last inputs on parameterized builds */
-  $('<script type="text/javascript" src="https://raw.github.com/blacklocus/jquery-impression/master/jquery.impression.min.js"></script>').appendTo('body');
-  setTimeout(function() {
-    $('form[name=parameters]').impression();
-  }, 1);
+  $.getScript("https://raw.github.com/blacklocus/jquery-impression/master/jquery.impression.min.js", function () {
+    $('form[name=parameters] input').impression();
+  });
 })(jQuery);
 
