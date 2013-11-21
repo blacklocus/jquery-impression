@@ -9,6 +9,8 @@
 (function ($) {
   /* remember last inputs on parameterized builds */
   $('<script type="text/javascript" src="https://raw.github.com/blacklocus/jquery-impression/master/jquery.impression.min.js"></script>').appendTo('body');
-  $('form[name=parameters]').impression();
+  setTimeout(function() {
+    $('form[name=parameters]').impression();
+  }, 1);
 })(jQuery);
 
