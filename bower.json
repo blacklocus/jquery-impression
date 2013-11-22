@@ -1,0 +1,18 @@
+{
+  "name": "jquery.impression",
+  "description": "Saves and recalls form state via local storage",
+  "version": "1.0.0",
+  "main": [
+    "./jquery.impression.js",
+    "./jquery.impression.min.js",
+    "./README.md"
+  ],
+  "ignore": [
+    "**/.*"
+  ],
+  "dependencies": {
+    "jquery": ">=1.2"
+  },
+  "homepage": "https://github.com/blacklocus/jquery-impression",
+  "license": ""
+}
