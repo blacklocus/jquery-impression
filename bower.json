@@ -3,12 +3,10 @@
   "description": "Saves and recalls form state via local storage",
   "version": "1.0.0",
   "main": [
-    "./jquery.impression.js",
-    "./jquery.impression.min.js",
-    "./README.md"
+    "./jquery.impression.js"
   ],
   "ignore": [
-    "**/*"
+    "css", "img", "js", "*.json", "*.html", "**/.*"
   ],
   "dependencies": {
     "jquery": ">=1.2"
