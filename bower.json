@@ -8,11 +8,11 @@
     "./README.md"
   ],
   "ignore": [
-    "**/.*"
+    "**/*"
   ],
   "dependencies": {
     "jquery": ">=1.2"
   },
   "homepage": "https://github.com/blacklocus/jquery-impression",
-  "license": ""
+  "license": "Apache2"
 }
